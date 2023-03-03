@@ -5,7 +5,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>PolluxUI Admin</title>
+  <title> Admin FPT</title>
   <!-- base:css -->
   <link rel="stylesheet" href="/vendors/typicons/typicons.css">
   <link rel="stylesheet" href="/vendors/css/vendor.bundle.base.css">
@@ -463,9 +463,9 @@
                         <td>{{ $staff->email }}</td>
                         <td>
                           <div class="d-flex align-items-center">
-                            <a href="{{ url ('admin/staff/edit/'.$staff->id) }}" class="btn btn-success btn-sm btn-icon-text mr-3"></a>
+                            <button>></button><a href="{{ url ('admin/staff/edit/'.$staff->id) }}" class="btn btn-success btn-sm btn-icon-text mr-3"></a>
                               Edit
-                              <i class="typcn typcn-edit btn-icon-append"></i>                          
+                              <i class="typcn typcn-edit btn-icon-append"></i> </button>                         
                             
                               <a href="{{ url ('admin/destroy/staff/'.$staff->id) }}"class="btn btn-danger btn-sm btn-icon-text"></a>
                               Delete
