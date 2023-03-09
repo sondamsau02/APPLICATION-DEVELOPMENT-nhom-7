@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    {{ __('WelC  Administrator') }}
+                    {{ __('Welcome  Trainer') }}
                 </div>
             </div>
         </div>
