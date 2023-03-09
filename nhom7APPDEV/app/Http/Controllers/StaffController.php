@@ -35,7 +35,7 @@ class StaffController extends Controller
 
         $staff->save();
 
-        return redirect()->route('admin.staff')->with('success', 'Tài khoản staff đã được thêm mới');
+        return redirect()->route('admin.staff.index')->with('success', 'Staff member Create successfully!');
 
     }
 
@@ -63,14 +63,20 @@ class StaffController extends Controller
 
     $staff->save();
 
-    return redirect()->route('admin.staff.index')->with('success', 'Tài khoản staff đã được cập nhật');
+    return redirect()->route('admin.staff.index')->with('success', ' Staff member Update successfully!');
 }
 
 
-    public function destroy($id)
-    {
-        $staff = Staff::find($id);
-        $staff->delete();
-        return redirect()->route('admin.staff.index')->with('success', 'Tài khoản staff đã được xóa');
-    }
+   public function destroy(Staff $staff)
+   {
+    $staff->delete();
+
+    return redirect()->route('admin.staff.index')->with('success', 'Staff member deleted successfully!');
+   }
+
+   public function dashboard()
+{
+    return view('staff.dashboard');
+}
+
 }

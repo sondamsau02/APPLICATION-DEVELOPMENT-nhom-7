@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class AdminController extends Controller
 {
     public function loginPost(Request $request){
-        $credentials = $request->only('email','password');
+        $credentials = $request->only('name','password');
         if(Auth::guard('admin')->attempt($credentials)){
             return redirect()->route('admin.dashboard');
 
@@ -24,6 +24,8 @@ class AdminController extends Controller
     } 
     public function logout(){
          Auth::guard('admin')->logout();
+
+         return redirect('/admin/login');
 
         }
 
