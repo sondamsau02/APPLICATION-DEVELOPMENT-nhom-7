@@ -36,6 +36,11 @@ return [
     */
 
     'guards' => [
+        'staff' => [
+            'driver' => 'session',
+            'provider' => 'staffs',
+        ],
+
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
@@ -45,14 +50,21 @@ return [
             'driver' => 'session',
             'provider' => 'admins',
         ],
+        
 
         'api'=>[
             'driver' =>'token',
             'provider'=>'users',
             'hash'=>false,
+            
 
 
-        ]
+
+        ],
+        
+
+
+        
     ],
 
     /*
@@ -73,6 +85,11 @@ return [
     */
 
     'providers' => [
+        'staffs' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Staff::class,
+        ],
+        
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
@@ -82,6 +99,8 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Admin::class,
         ],
+        
+        
 
         // 'users' => [
         //     'driver' => 'database',
