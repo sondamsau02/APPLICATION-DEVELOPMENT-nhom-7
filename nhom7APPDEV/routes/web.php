@@ -1,11 +1,16 @@
 <?php
-use App\Http\Middleware\AdminMiddleware;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\Auth\LoginController;
 use GuzzleHttp\Middleware;
-use App\Http\Controllers\StaffController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\AdminMiddleware;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\StaffController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Trainer\TrainerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,9 +26,10 @@ use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+ });
 Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login']);
+
 Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register']);
@@ -40,7 +46,7 @@ Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.lo
 
 //middleware admin
 Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard')->Middleware('admin');
-Route::get('/dashboard', 'DashboardController@index')->middleware('admin');
+//Route::get('/dashboard', 'DashboardController@index')->middleware('admin');
 //
 //..staff CRUD
 Route::get('/admin/staff', [StaffController::class, 'index'])->name('admin.staff.index')->Middleware('admin');
@@ -67,3 +73,14 @@ Route::post('/staff/login', [App\Http\Controllers\Staff\LoginController::class, 
 
 //staff dashboard
 Route::get('/staff/dashboard', [StaffController::class, 'dashboard'])->name('staff.dashboard');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//trainer login
+Route::get('/trainer/login', [App\Http\Controllers\Trainer\TrainerController::class, 'showLoginForm'])->name('trainer.login');
+Route::post('/trainer/login', [App\Http\Controllers\Trainer\TrainerController::class, 'login'])->name('trainer.login.submit');
+//trainee login
+//Route::get('/trainee/login', [App\Http\Controllers\Trainee\TrainerController::class, 'showLoginForm'])->name('trainee.login');
+//Route::post('/trainee/login', [App\Http\Controllers\Trainee\TrainerController::class, 'login'])->name('trainee.login.submit');
+
