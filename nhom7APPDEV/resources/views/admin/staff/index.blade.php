@@ -75,11 +75,16 @@
               <td>{{ $staff->name }}</td>
               <td>{{ $staff->email }}</td>
               <td>
+                
                 <div class="d-flex align-items-center">
-                  <a href="{{ url ('admin/staff/edit/'.$staff->id) }}" class="btn btn-success btn-sm btn-icon-text mr-3">Edit</a>
-                  <i class="typcn typcn-edit btn-icon-append"></i>                         
-                  <a href="{{ url ('admin/staff/destroy/'.$staff->id) }}"class="btn btn-danger btn-sm btn-icon-text"> Delete</a>
-                  <i class="typcn typcn-delete-outline btn-icon-append"></i>                          
+                  <a href="{{ url ('admin/staff/edit/'.$staff->id) }}" class="btn btn-success btn-sm btn-icon-text mr-3">Edit
+                  <i class="typcn typcn-edit btn-icon-append"></i> 
+                  </a>
+                                          
+                  <a href="{{ url ('admin/staff/destroy/'.$staff->id) }}"class="btn btn-danger btn-sm btn-icon-text"> Delete
+                  <i class="typcn typcn-delete-outline btn-icon-append"></i>  
+                  </a>
+                                          
                 </div>
               </td>
             </tr>
