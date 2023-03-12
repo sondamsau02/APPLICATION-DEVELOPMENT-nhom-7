@@ -13,13 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('admins', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->nullable();
-            $table->string('password');
-            $table->timestamps();
-        });
+        //
     }
 
     /**
@@ -29,6 +23,13 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('admins');
+        //
+        Schema::create('course_categories', function($table){
+            $table->id();
+            $table->string('name')->unique();
+            $table->text('description')->nullable();
+            $table->timestamps();
+
+        });
     }
 };
