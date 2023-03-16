@@ -11,6 +11,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Trainer\TrainerController;
+use Illuminate\Support\Facades\Gate;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,18 @@ Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class, 's
 Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 //trainer
+// routes/web.php
+
+
+
+Route::group(['middleware' => ['auth']], function () {
+      Route::get('/auth/edit', [App\Http\Controllers\UserController::class, 'edit_profile'])->name('auth.edit');
+      Route::put('/update/profile', [App\Http\Controllers\UserController::class, 'update_profile'])->name('auth.update_profile')->middleware('can:update-user-profile,user');
+  });
+  
+  
+        
+
 
 //admin//
 Route::get('admin/login',function(){
@@ -57,7 +70,7 @@ Route::put('/admin/staff/update/{id}', [StaffController::class,'update'])->name(
 Route::get('/admin/staff/destroy/{staff}', [StaffController::class, 'destroy'])->name('admin.staff.destroy')->Middleware('admin');
 //..Staff CRUD
 
-// Hiển thị danh sách user
+// Hiển thị danh sách user: trainer
 Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users.index')->Middleware('admin');
 Route::get('/admin/users/create', [UserController::class, 'create'])->name('admin.users.create')->Middleware('admin');
 Route::post('/admin/users/store', [UserController::class, 'store'])->name('admin.users.store')->Middleware('admin');
@@ -78,9 +91,8 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 //trainer login
-Route::get('/trainer/login', [App\Http\Controllers\Trainer\TrainerController::class, 'showLoginForm'])->name('trainer.login');
-Route::post('/trainer/login', [App\Http\Controllers\Trainer\TrainerController::class, 'login'])->name('trainer.login.submit');
-//trainee login
-//Route::get('/trainee/login', [App\Http\Controllers\Trainee\TrainerController::class, 'showLoginForm'])->name('trainee.login');
-//Route::post('/trainee/login', [App\Http\Controllers\Trainee\TrainerController::class, 'login'])->name('trainee.login.submit');
 
+//trainee login
+Route::get('/trainee/login', [App\Http\Controllers\Trainee\TrainerController::class, 'showLoginForm'])->name('trainee.login');
+Route::post('/trainee/login', [App\Http\Controllers\Trainee\TrainerController::class, 'login'])->name('trainee.login.submit');
+//
