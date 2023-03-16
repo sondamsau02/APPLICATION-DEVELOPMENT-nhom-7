@@ -13,7 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        //
+         Schema::create('courses', function($table){
+            $table->increments('id');
+            $table->string('name')->unique();
+            $table->longtext('description');
+            $table->unsignedBigInteger('category_id');
+            $table->foreign('category_id')->references('id')->on('categories');
+            $table->timestamps();
+        });
+        
     }
 
     /**
@@ -24,5 +32,7 @@ return new class extends Migration
     public function down()
     {
         //
+        Schema::dropIfExists('courses');
+
     }
 };
