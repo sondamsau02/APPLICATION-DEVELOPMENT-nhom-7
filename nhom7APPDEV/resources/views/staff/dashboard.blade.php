@@ -31,7 +31,7 @@
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false" aria-controls="error">
               <i class="typcn typcn-globe-outline menu-icon"></i>
-              <span class="menu-title">Trainers CRUD</span>
+              <span class="menu-title">Trainee CRUD</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="error">
@@ -42,7 +42,7 @@
             </div>
           </li>
           <li class="nav-item">
-            <form method="POST" action="{{ route('admin.logout') }}">
+            <form method="POST" action="{{ route('staff.logout') }}">
             @csrf
              <button type="submit" class="nav-link btn btn-link">
              <i class="typcn typcn-key-outline menu-icon"></i>

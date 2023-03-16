@@ -20,8 +20,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('phone_number', 8);
-            $table->string('department', 50);
+            
             $table->string('type', 8)->default('internal');
             $table->string('date_of_birth', 10);
             $table->string('address', 100);
@@ -39,5 +38,6 @@ return new class extends Migration
     public function down()
     {
         //
+        Schema::dropIfExists('trainers');
     }
 };

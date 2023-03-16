@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('telephone')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            
         });
     }
 
