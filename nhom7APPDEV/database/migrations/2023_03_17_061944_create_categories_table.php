@@ -13,13 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        //
-        Schema::create('course_categories', function($table){
-            $table->id()->autoIncrement();
-            $table->string('name')->unique();
-            $table->text('description')->nullable();
+        Schema::create('categories', function (Blueprint $table) {
+            $table->id();
             $table->timestamps();
-
         });
     }
 
@@ -30,8 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
-        Schema::dropIfExists('course_categories');
-        
+        Schema::dropIfExists('categories');
     }
 };

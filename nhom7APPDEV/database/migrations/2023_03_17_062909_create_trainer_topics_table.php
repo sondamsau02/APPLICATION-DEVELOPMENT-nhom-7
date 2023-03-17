@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        //
-        Schema::create('topics', function($table){
+        Schema::create('trainer_topics', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->unique();
-            $table->longtext('description');
-            $table->integer('course_id')->unsigned();
-            $table->foreign('course_id')->references('id')->on('courses');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('topic_id');
+ 
+            $table->foreign('topic_id')->references('id')->on('topics');
         });
     }
 
@@ -30,7 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
-        Schema::dropIfExists('topics');
+        Schema::dropIfExists('trainer_topics');
     }
 };
