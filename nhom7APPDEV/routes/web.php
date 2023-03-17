@@ -23,11 +23,17 @@ use Illuminate\Support\Facades\Gate;
 | contains the "web" middleware group. Now create something great!
 |
 */
-// trainer
 
-Route::get('/', function () {
-    return view('welcome');
- });
+//login route
+
+Route::prefix('/')->group(function () {
+      Route::get('/',[AuthController::class,'getLogin']);
+      Route::post('/',[AuthController::class,'postLogin'])->name('auth.login');
+  });
+//
+//Middleware Authentication
+Route::group(['middleware' => ['auth', 'role:Admin']], function () {});
+
 Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login']);
 
