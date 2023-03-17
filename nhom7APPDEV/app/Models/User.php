@@ -45,11 +45,11 @@ class User extends Authenticatable
     }
 
     public function hasRole($role) {
-        return $this->role->name === $role;
+        return $this->role->description === $role;
     }
 
     public function topics() {
-        return $this->belongsToMany(Topics::class, 'assigned_topics', 'topic_id', 'trainer_id');
+        return $this->belongsToMany(Topics::class, 'trainer_topics', 'topic_id', 'trainer_id');
     }
 
 }

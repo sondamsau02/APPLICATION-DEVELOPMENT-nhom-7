@@ -18,22 +18,22 @@ class AdminSeeder extends Seeder
         //
         DB::table('roles')->insert([
             
-            'description' => 'Administrator',
+            'description' => 'Admin',
         ]);
 
         DB::table('roles')->insert([
             
-            'description' => 'Management Staff',
-        ]);
-
-        DB::table('roles')->insert([
-            'name' => 'Trainer',
-            'description' => 'trainer',
+            'description' => 'Staff',
         ]);
 
         DB::table('roles')->insert([
             
-            'description' => 'trainee',
+            'description' => 'Trainer',
+        ]);
+
+        DB::table('roles')->insert([
+            
+            'description' => 'Trainee',
         ]);
 
         DB::table('users')->insert([

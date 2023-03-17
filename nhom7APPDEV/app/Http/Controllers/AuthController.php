@@ -26,7 +26,7 @@ class AuthController extends Controller
     
             $request->session()->regenerate();
     
-            if ($user->role->name === 'Admin') {
+            if ($user->role->description === 'Admin') {
                 return redirect()->route('admin.index')->with('success', 'Login such as an Administrator Successfully!');
             } elseif($user->role->name === 'Staff') {
                 return redirect()->route('staff.index')->with('success', 'Login such as a Staff Successfully!');

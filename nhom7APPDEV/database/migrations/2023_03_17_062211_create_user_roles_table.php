@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('roles', function($table){
             $table->increments('id');
             $table->string('description')->unique();
+            $table->timestamps();
         });
     }
 

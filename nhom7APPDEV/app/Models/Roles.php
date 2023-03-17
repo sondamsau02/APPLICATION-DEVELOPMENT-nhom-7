@@ -12,7 +12,7 @@ class Roles extends Model
     public $primaryKey='id';
     public $timestamps=false;
     protected $filltable=[
-        'name',
+        
         'description',
     ];
 
