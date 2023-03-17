@@ -14,12 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('trainer_topics', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedBigInteger('user_id');
+            $table->id();
+            $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->unsignedBigInteger('topic_id');
+            $table->unsignedInteger('topic_id');
  
             $table->foreign('topic_id')->references('id')->on('topics');
+            $table->timestamps();
         });
     }
 
