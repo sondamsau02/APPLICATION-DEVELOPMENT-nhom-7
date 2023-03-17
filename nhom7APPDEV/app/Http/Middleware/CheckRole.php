@@ -16,8 +16,8 @@ class checkRole
      */
     public function handle(Request $request, Closure $next, $role)
     {
-        if (! $request->user()->hasRole($role)) {
-            abort(403, 'vai cut.');
+        if (!$request->user()->hasRole($role)) {
+            abort(403, 'Unauthorized action.');
         }
     
         return $next($request);
