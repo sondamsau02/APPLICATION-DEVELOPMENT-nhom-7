@@ -34,7 +34,7 @@ class AdminController extends Controller
     //     }
 
     public function Adminindex(){
-        return view('welcome');
+        return view('admin.page.index');
     }
 
     public function Roleindex(){
