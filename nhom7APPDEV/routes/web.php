@@ -38,15 +38,7 @@ Route::prefix('/')->group(function () {
   Route::group(['middleware' => ['auth', 'role:Admin']], function () {
       // admin routes
       Route::prefix('admin')->group(function () {
-          Route::get('/',[AdminController::class,'Adminindex'])->name('admin.index');
-          Route::prefix('role')->group(function () {
-              Route::get('/',[AdminController::class,'Roleindex'])->name('admin.role.index');
-              Route::get('add/',[AdminController::class,'getAddRole']);
-              Route::post('add/',[AdminController::class,'postAddRole'])->name('admin.role.add');
-              Route::get('update/{id}',[AdminController::class,'getUpdateRole']);
-              Route::post('update/{id}',[AdminController::class,'postUpdateRole'])->name('admin.role.update');
-              Route::get('delete/{id}',[AdminController::class,'deleteRole']);
-          });
+          Route::get('/',[AdminController::class,'Adminindex'])->name('admin.index');         
           Route::prefix('account')->group(function () {
               Route::get('/',[AdminController::class,'Accountindex'])->name('admin.account.index');
               Route::get('add/',[AdminController::class,'getAddAccount']);
