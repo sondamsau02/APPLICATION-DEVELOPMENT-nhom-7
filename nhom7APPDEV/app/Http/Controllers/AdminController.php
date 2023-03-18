@@ -106,8 +106,8 @@ class AdminController extends Controller
     public function Accountindex(){
         $account=DB::table('users')
         ->join('roles', 'users.role_id', '=', 'roles.id')
-        ->where('roles.name', '=', 'Staff')
-        ->orWhere('roles.name', '=', 'Trainer')
+        ->where('roles.description', '=', 'Staff')
+        ->orWhere('roles.description', '=', 'Trainer')
         ->select('users.*')
         ->get();
         $role=Roles::all();
