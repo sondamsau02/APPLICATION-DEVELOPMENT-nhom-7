@@ -37,82 +37,27 @@ class AdminController extends Controller
         return view('admin.page.index');
     }
 
-    public function Roleindex(){
-        $role=Roles::all();
-        return view('Admin.Page.Role.listRole', compact('role'));
-    }
-
-    public function getAddRole(){
-        $role=Roles::all();
-        return view('Admin.Page.Role.addRole', compact('role'));
-    }
-
-    public function postAddRole(Request $request){
-        if($request->isMethod('POST')){
-            $validator=Validator::make($request->all(),[
-                'name'=>'required',
-                'description'=>'required',
-            ]);
-
-            if($validator->fails()){
-                return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
-            }
-
-            $role= new Roles;
-            $role->name=$request->name;
-            $role->description=$request->description;
-            $role->save();
-            return redirect()->route('admin.role.index')->with('success','Add new Role Successfully!');
+    
+    public function Accountindex(Request $request){
+        $query = DB::table('users')
+            ->join('roles', 'users.role_id', '=', 'roles.id')
+            ->where('roles.description', '=', 'Staff')
+            ->orWhere('roles.description', '=', 'Trainer')
+            ->select('users.*');
+    
+        if($request->has('username')){
+            $query->where('username', 'like', '%'.$request->username.'%');
         }
-    }
-
-    public function getUpdateRole($id){
-        $data['role']=Roles::find($id);
-        return view('Admin.Page.Role.updateRole', $data);
-    }
-
-    public function postUpdateRole(Request $request, $id){
-        if($request->isMethod('POST')){
-            $validator=Validator::make($request->all(),[
-                'name'=>'required',
-            ]);
-
-            if($validator->fails()){
-                return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
-            }
-
-            $role= Roles::find($id);
-            $role->name=$request->name;
-            $role->description=$request->description;
-            $role->save();
-            return redirect()->route('admin.role.index')->with('success','Update Role Successfully!');
+    
+        if($request->has('role_id')){
+            $query->where('role_id', '=', $request->role_id);
         }
-    }
-
-    public function deleteRole($id) {
-        $usersCount = User::where('role_id', $id)->count();
-        if ($usersCount > 0) {
-            return redirect()->back()->with('error', 'Some Accounts is associated with this Role so this Role cannot be deleted!');
-        }
-        
-        Roles::where('id', $id)->delete();
-        return redirect()->route('admin.role.index')->with('success', 'Delete Role Successfully!');
-    }
-
-    public function Accountindex(){
-        $account=DB::table('users')
-        ->join('roles', 'users.role_id', '=', 'roles.id')
-        ->where('roles.description', '=', 'Staff')
-        ->orWhere('roles.description', '=', 'Trainer')
-        ->select('users.*')
-        ->get();
+    
+        $account = $query->get();
         $role=Roles::all();
         return view('Admin.Page.Account.listAccount', compact('role', 'account'));
     }
+    
 
     public function getAddAccount(){
         $role=Roles::all();
@@ -124,22 +69,32 @@ class AdminController extends Controller
             $validator=Validator::make($request->all(),[
                 'username'=>'required',
                 'password'=>'required',
+                'role_id' => 'required|in:2,3' // Kiểm tra giá trị của role_id phải là 2 hoặc 3
             ]);
-
+    
             if($validator->fails()){
                 return redirect()->back()
                 ->withErrors($validator)
                 ->withInput();
             }
-
+            if(User::where('username', $request->username)->exists()) {
+                return redirect()->back()->with('error', 'Username already exists. Please choose another one.')->withInput();
+            }
+            
+            
+    
             $account= new User;
             $account->username=$request->username;
             $account->password=Hash::make($request->password);
             $account->role_id=$request->role_id;
             $account->save();
             return redirect()->route('admin.account.index')->with('success','Add new Account Successfully!');
+
+            
         }
+        
     }
+    
 
     public function getUpdateAccount($id){
         $role=Roles::all();

@@ -49,13 +49,18 @@
                                     <select class="form-control" name="role_id" value="{{ old('role_id') }}">
                                         
                                         <option value="3">Trainer</option>
+                                        <option value="2">Staff</option>
                                     </select>
                                     <br>
                                 </div>
                             </fieldset>
-                            <button class="btn btn-primary btn-block text-uppercase mb-3" type="submit">
+                            <button class="btn btn-success text-uppercase mb-3" type="submit">
                                 Update Account
                             </button>
+                            <a href="{{ route('admin.account.index') }}" class="btn btn-danger btn-icon-split">
+                                 Back to List Account
+                                 </a>
+
                         </form>
                     </div>
                 </div>

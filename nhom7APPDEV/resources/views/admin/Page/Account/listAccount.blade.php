@@ -18,27 +18,36 @@
 @endif
 
 <!-- DataTales Example -->
-<div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <div class="row">
-            <div class="cpl-sm-12 col-md-6">
-                <h4 class="m-0 font-weight-bold text-primary">Account List</h4>
-            </div>
-            <div class="cpl-sm-12 col-md-6">
-                <a href="{{ route('admin.account.add') }}" class="btn btn-primary btn-icon-split" style="float: right;">
-                    <span class="icon text-white-50">
-                        <i class="fas fa-flag"></i>
-                    </span>
-                    <span class="text">Add</span>
-                </a>
-            </div>
-        </div>
+<div class="d-flex justify-content-between">
+    <div>
+        <a href="{{route('admin.account.add')}}" class="btn btn-success text-uppercase mb-3">
+            Add Account
+        </a>
     </div>
+    <div>
+        <form class="form-inline" method="GET" action="{{ route('admin.account.index') }}">
+            <div class="form-group mb-2">
+                <input type="text" class="form-control" name="search" placeholder="Search">
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+                <select class="form-control" name="role_id">
+                    <option value="">--Select Role--</option>
+                    <option value="2">Staff</option>
+                    <option value="3">Trainer</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Search</button>
+        </form>
+    </div>
+</div>
+
     <div class="card-body">
         <div class="table-responsive">
+            
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
+                        
                         <th>Username</th>
                         <th>Name</th>
                         <th>Email</th>

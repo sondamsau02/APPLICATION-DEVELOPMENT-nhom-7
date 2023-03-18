@@ -12,6 +12,12 @@
             </ul>
         </div>
     @endif
+    @if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
+
 
         <div class="container-fluid">
             <div class="row">
@@ -32,16 +38,24 @@
                                         <br>
                                         <label>Role:</label>
                                         <br>
-                                        <select class="form-control" name="role_id" value="{{ old('role_id') }}">
-                                           
-                                            <option value="3">Trainer</option>
-                                        </select>
+                                        <select name="role_id" class="form-control" required>
+                                          <option value="">Select Role</option>
+                                          <option value="2">Management Staff</option>
+                                           <option value="3">Trainer</option>
+                                           </select>
+
+                                       
                                         <br>
                                     </div>
                                 </fieldset>
-                                <button class="btn btn-primary btn-block text-uppercase mb-3" type="submit">
+                                <button class="btn btn-success text-uppercase mb-3" type="submit">
                                     Add Account
                                 </button>
+                                <a href="{{ route('admin.account.index') }}" class="btn btn-danger btn-icon-split">
+                                 Back to List Account
+                                 </a>
+
+                                
                             </form>
                         </div>
                     </div>
