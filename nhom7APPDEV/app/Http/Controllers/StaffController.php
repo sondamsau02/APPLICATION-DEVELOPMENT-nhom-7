@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Categories;
+use App\Models\Courses;
+use App\Models\Topics;
+use App\Models\TrainerCoures;
+use App\Models\TrainerTopics;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
@@ -70,7 +75,7 @@ class StaffController extends Controller
         }
     }
     public function getUpdateTrainee($id){
-        $data['Trainee']=User::find($id);
+        $data['trainee']=User::find($id);
         return view('Staff.Page.Trainee.updateTrainee', $data);
     }
 
@@ -119,6 +124,160 @@ class StaffController extends Controller
         ->get();
         return view('Staff.Page.Trainee.searchTrainee', compact('trainee'), compact('search'));
     }
+
+    //CATEGORY CONTROLLER//
+    public function Categoryindex(){
+        $category=Categories::all();
+        return view('Staff.Page.Category.listCategory', compact('category'));
+    }
+
+    public function getAddCategory(){
+        return view('Staff.Page.Category.addCategory');
+    }
+
+    public function postAddCategory(Request $request){
+        if($request->isMethod('POST')){
+            $validator=Validator::make($request->all(),[
+                'name'=>'required|unique:categories,name',
+                'description'=>'required',
+            ]);
+
+            if($validator->fails()){
+                return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+            }
+
+            $category= new Categories;
+            $category->name=$request->name;
+            $category->description=$request->description;
+            $category->save();
+            return redirect()->route('staff.category.index')->with('success','Add new Category Successfully!');
+        }
+    }
+    public function getUpdateCategory($id){
+        $data['category']=Categories::find($id);
+        return view('Staff.Page.Category.updateCategory', $data);
+    }
+
+    public function postUpdateCategory(Request $request, $id){
+        if($request->isMethod('POST')){
+            $validator=Validator::make($request->all(),[
+                
+            ]);
+
+            if($validator->fails()){
+                return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+            }
+
+            $category= Categories::find($id);
+            $category->name=$request->name;
+            $category->description=$request->description;
+            $category->save();
+            return redirect()->route('staff.category.index')->with('success','Update Category Successfully!');
+        }
+    }
+
+    public function deleteCategory($id) {
+        $coursesCount = Courses::where('category_id', $id)->count();
+        if ($coursesCount > 0) {
+            return redirect()->back()->with('error', 'Some Courses is associated with this Category so this Category cannot be deleted!');
+        }
+        
+        Categories::where('id', $id)->delete();
+        return redirect()->route('staff.category.index')->with('success', 'Delete Category Successfully!');
+    }
+
+    public function searchCategory(Request $request){
+        $search=$request->input('search');
+        $category=Categories::query()->where('name','LIKE','%'.$search.'%')
+        ->get();
+        return view('Staff.Page.Category.searchCategory', compact('category'), compact('search'));
+    }
+    //Course//
+    public function Courseindex(){
+        $course=Courses::all();
+        $category=Categories::all();
+        return view('Staff.Page.Course.listCourse', compact('course', 'category'));
+    }
+    public function getAddCourse(){
+        $category=Categories::all();
+        return view('Staff.Page.Course.addCourse', compact('category'));
+    }
+
+    public function postAddCourse(Request $request){
+        if($request->isMethod('POST')){
+            $validator=Validator::make($request->all(),[
+                'name'=>'required|unique:courses,name',
+                'description'=>'required',
+                'category_id'=>'required',
+            ]);
+
+            if($validator->fails()){
+                return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+            }
+
+            $course= new Courses;
+            $course->name=$request->name;
+            $course->description=$request->description;
+            $course->category_id=$request->category_id;
+            $course->save();
+            return redirect()->route('staff.course.index')->with('success','Add new Course Successfully!');
+        }
+    }
+
+    public function getUpdateCourse($id){
+        $data['course']=Courses::find($id);
+        $category=Categories::all();
+        return view('Staff.Page.Course.updateCourse', $data, compact('category'));
+    }
+
+    public function postUpdateCourse(Request $request, $id){
+        if($request->isMethod('POST')){
+            $validator=Validator::make($request->all(),[
+                
+            ]);
+
+            if($validator->fails()){
+                return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+            }
+
+            $course= Courses::find($id);
+            $course->name=$request->name;
+            $course->description=$request->description;
+            $course->category_id=$request->category_id;
+            $course->save();
+            return redirect()->route('staff.course.index')->with('success','Update Course Successfully!');
+        }
+    }
+
+    public function deleteCourse($id) {
+        $topicsCount = Topics::where('course_id', $id)->count();
+        $trainerCount = TrainerTopics::where('user_id', $id)->count();
+        if ($topicsCount > 0 || $trainerCount > 0) {
+            return redirect()->back()->with('error', 'Some Topics is associated with this Course 
+            or a Trainer was assigned to this Course. So this Course cannot be deleted!');
+        }
+        
+        Courses::where('id', $id)->delete();
+        return redirect()->route('staff.course.index')->with('success', 'Delete Course Successfully!');
+    }
+
+    public function searchCourse(Request $request){
+        $search=$request->input('search');
+        $course=Courses::query()->where('name','LIKE','%'.$search.'%')
+        ->get();
+        return view('Staff.Page.Course.searchCourse', compact('course', 'search'));
+    }
+    
+
+
 
 
 }

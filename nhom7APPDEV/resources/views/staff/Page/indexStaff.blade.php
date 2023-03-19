@@ -13,7 +13,7 @@
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false" aria-controls="error">
               <i class="typcn typcn-globe-outline menu-icon"></i>
-              <span class="menu-title">Management Trainee</span>
+              <span class="menu-title">CRUD Trainee</span>
               <i class="menu-arrow"></i>  
             </a>
             <div class="collapse" id="error">
@@ -22,6 +22,31 @@
                 <li class="nav-item"> <a class="nav-link" href="{{ route('staff.trainee.add') }}">Add new Trainee</a></li>
               </ul>
             </div>
+            <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false" aria-controls="error">
+              <i class="typcn typcn-globe-outline menu-icon"></i>
+              <span class="menu-title">Manage Categories</span>
+              <i class="menu-arrow"></i>  
+            </a>
+            <div class="collapse" id="error">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="{{ route('staff.category.index') }}">Category List </a></li>
+              </ul>
+            </div>
+            <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false" aria-controls="error">
+              <i class="typcn typcn-globe-outline menu-icon"></i>
+              <span class="menu-title">Manage Courses</span>
+              <i class="menu-arrow"></i>  
+            </a>
+            <div class="collapse" id="error">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="{{ route('staff.course.index') }}">Courses List </a></li>
+              </ul>
+            </div>
+
+            
+            
          <!--logout-->
           <li class="nav-item">
             <form method="POST" action="{{ route('auth.logout') }}">
