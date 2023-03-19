@@ -62,8 +62,22 @@ Route::prefix('/')->group(function () {
         });
     });
 });
-
-
+//staff
+Route::group(['middleware' => ['auth', 'role:Staff']], function () {
+    // staff routes
+    Route::prefix('Staff')->group(function () {
+        Route::get('/',[StaffController::class,'Staffindex'])->name('staff.index');
+        Route::prefix('trainee')->group(function () {
+            Route::get('/',[StaffController::class,'Traineeindex'])->name('staff.trainee.index');
+            Route::get('add/',[StaffController::class,'getAddTrainee']);
+            Route::post('add/',[StaffController::class,'postAddTrainee'])->name('staff.trainee.add');
+            Route::get('update/{id}',[StaffController::class,'getUpdateTrainee']);
+            Route::post('update/{id}',[StaffController::class,'postUpdateTrainee'])->name('staff.trainee.update');
+            Route::get('delete/{id}',[StaffController::class,'deleteTrainee']);
+            Route::get('search',[StaffController::class,'searchTrainee'])->name('staff.trainee.search');
+        });
+    });
+});
 //
 //Middleware Authentication
 // Route::group(['middleware' => ['auth', 'role:Admin']], function () {});
