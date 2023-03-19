@@ -76,6 +76,25 @@ Route::group(['middleware' => ['auth', 'role:Staff']], function () {
             Route::get('delete/{id}',[StaffController::class,'deleteTrainee']);
             Route::get('search',[StaffController::class,'searchTrainee'])->name('staff.trainee.search');
         });
+        Route::prefix('category')->group(function () {
+            Route::get('/',[StaffController::class,'Categoryindex'])->name('staff.category.index');
+            Route::get('add/',[StaffController::class,'getAddCategory']);
+            Route::post('add/',[StaffController::class,'postAddCategory'])->name('staff.category.add');
+            Route::get('update/{id}',[StaffController::class,'getUpdateCategory']);
+            Route::post('update/{id}',[StaffController::class,'postUpdateCategory'])->name('staff.category.update');
+            Route::get('delete/{id}',[StaffController::class,'deleteCategory']);
+            Route::get('search',[StaffController::class,'searchCategory'])->name('staff.category.search');
+        });
+
+        Route::prefix('course')->group(function () {
+            Route::get('/',[StaffController::class,'Courseindex'])->name('staff.course.index');
+            Route::get('add/',[StaffController::class,'getAddCourse']);
+            Route::post('add/',[StaffController::class,'postAddCourse'])->name('staff.course.add');
+            Route::get('update/{id}',[StaffController::class,'getUpdateCourse']);
+            Route::post('update/{id}',[StaffController::class,'postUpdateCourse'])->name('staff.course.update');
+            Route::get('delete/{id}',[StaffController::class,'deleteCourse']);
+            Route::get('search',[StaffController::class,'searchCourse'])->name('staff.course.search');
+        });
     });
 });
 //
