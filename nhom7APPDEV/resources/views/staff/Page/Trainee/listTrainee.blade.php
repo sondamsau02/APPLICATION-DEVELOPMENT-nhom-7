@@ -86,14 +86,14 @@
                             <td></td>
                             
                                     <td>
-                                        <a href="{{ asset('staff/trainee/update/'. $value->id) }}"
+                                        <a href="{{ asset('Staff/trainee/update/'. $value->id) }}"
                                             class="btn btn-secondary btn-icon-split">
                                             <span class="icon text-white-10">
                                                 <i class="fas fa-arrow-right"></i>
                                             </span>
                                             <span class="text">Update</span>
                                         </a>
-                                        <a href="{{ asset('staff/trainee/delete/' . $value->id) }}"
+                                        <a href="{{ asset('Staff/trainee/delete/' . $value->id) }}"
                                             class="btn btn-danger btn-icon-split">
                                             <span class="icon text-white-10">
                                                 <i class="fas fa-trash"></i>
