@@ -1,5 +1,6 @@
-@extends('.Layout.master')
+@extends('Trainer.layout.master')
 @section('content')
+
 @if ($message = Session::get('success'))
         <div class="alert alert-success">
             <p>{{ $message }}</p>
