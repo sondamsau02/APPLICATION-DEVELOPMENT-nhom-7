@@ -54,7 +54,7 @@ Route::prefix('/')->group(function () {
     // trainer routes
     Route::prefix('trainer')->group(function () {
         Route::get('/',[TrainerController::class,'Trainerindex'])->name('trainer.index');
-        Route::get('assigntopic',[TrainerController::class,'Topicindex'])->name('trainer.topic.index');
+        Route::get('trainertopic',[TrainerController::class,'Topicindex'])->name('trainer.topic.index');
         Route::prefix('profile')->group(function () {
             Route::get('/',[TrainerController::class,'Profileindex'])->name('trainer.profile');
             Route::get('/update',[TrainerController::class,'getUpdateProfile']);
@@ -129,82 +129,4 @@ Route::group(['middleware' => ['auth', 'role:Staff']], function () {
         });
     });
 });
-//
-//Middleware Authentication
-// Route::group(['middleware' => ['auth', 'role:Admin']], function () {});
 
-// Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
-// Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login']);
-
-// Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
-// Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class, 'showRegistrationForm'])->name('register');
-// Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register']);
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-// //trainer
-// // routes/web.php
-
-
-
-// Route::group(['middleware' => ['auth']], function () {
-//       Route::get('/auth/edit', [App\Http\Controllers\UserController::class, 'edit_profile'])->name('auth.edit');
-//       Route::put('/update/profile', [App\Http\Controllers\UserController::class, 'update_profile'])->name('auth.update_profile')->middleware('can:update-user-profile,user');
-//   });
-  
-  
-        
-
-
-// //admin//
-// Route::get('admin/login',function(){
-//       return view ('admin.login');
-// });
-// //admin dang nhap...
-// Route::post('/admin/login', [AdminController::class, 'LoginPost'])->name('admin.loginPost');
-// Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
-
-// //middleware admin
-// Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard')->Middleware('admin');
-// //Route::get('/dashboard', 'DashboardController@index')->middleware('admin');
-// //
-// //..staff CRUD
-// Route::get('/admin/staff', [StaffController::class, 'index'])->name('admin.staff.index')->Middleware('admin');
-// Route::get('/admin/staff/create', [StaffController::class, 'create'])->name('admin.staff.create')->Middleware('admin');
-// Route::post('/admin/staff/store', [StaffController::class, 'store'])->name('admin.staff.store')->Middleware('admin');
-// Route::get('/admin/staff/edit/{id}', [StaffController::class, 'edit'])->name('admin.staff.edit')->Middleware('admin');
-// Route::put('/admin/staff/update/{id}', [StaffController::class,'update'])->name('admin.staff.update')->Middleware('admin');
-// Route::get('/admin/staff/destroy/{staff}', [StaffController::class, 'destroy'])->name('admin.staff.destroy')->Middleware('admin');
-// //..Staff CRUD
-
-// // Hiển thị danh sách user: trainer
-// Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users.index')->Middleware('admin');
-// Route::get('/admin/users/create', [UserController::class, 'create'])->name('admin.users.create')->Middleware('admin');
-// Route::post('/admin/users/store', [UserController::class, 'store'])->name('admin.users.store')->Middleware('admin');
-// Route::get('/admin/users/{user}', [UserController::class, 'show'])->name('admin.users.show')->Middleware('admin');
-// Route::get('/admin/users/{user}/edit', [UserController::class, 'edit'])->name('admin.users.edit')->Middleware('admin');
-// Route::put('/admin/users/{user}', [UserController::class, 'update'])->name('admin.users.update')->Middleware('admin');
-// Route::delete('/admin/users/{user}', [UserController::class, 'destroy'])->name('admin.users.destroy')->Middleware('admin');
-
-// //STAFF login//
-
-// Route::get('/staff/login', [App\Http\Controllers\Staff\LoginController::class, 'showLoginForm'])->name('staff.login');
-// Route::post('/staff/login', [App\Http\Controllers\Staff\LoginController::class, 'login'])->name('staff.login.submit');
-
-// //staff dashboard
-// Route::get('/staff/dashboard', [StaffController::class, 'dashboard'])->name('staff.dashboard');
-
-// Auth::routes();
-
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-// //trainer login
-
-
-// Route::get('/trainer/login', [App\Http\Controllers\Trainer\TrainerController::class, 'showLoginForm'])->name('trainer.login');
-// Route::post('/trainer/login', [App\Http\Controllers\Trainer\TrainerController::class, 'login'])->name('trainer.login.submit');
-// //trainee login
-
-
-
-// //trainee login
-// Route::get('/trainee/login', [App\Http\Controllers\Trainee\TrainerController::class, 'showLoginForm'])->name('trainee.login');
-// Route::post('/trainee/login', [App\Http\Controllers\Trainee\TrainerController::class, 'login'])->name('trainee.login.submit');
-// //
