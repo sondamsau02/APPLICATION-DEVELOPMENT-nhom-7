@@ -19,9 +19,9 @@
             <div class="card-header py-3">
                 <div class="row">
                     <div class="cpl-sm-12 col-md-6">
-                        <h4 class="m-0 font-weight-bold text-primary">Course List
+                        <h4 class="m-0 font-weight-bold text-primary">Trainer List
                             <!-- Topbar Search -->
-                            <form action="{{ route('staff.course.search') }}" method="GET"
+                            <form action="" method="GET"
                                 class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                                 <div class="input-group">
                                     <input type="text" class="form-control bg-light border-0 small"
@@ -37,14 +37,7 @@
                         </h4>
                     </div>
                     <div class="cpl-sm-12 col-md-6">
-                    <a href="{{ route('staff.index') }}" class="btn btn-danger btn-icon-split"
-                            style="float: right;">
-                            <span class="icon text-white-50">
-                                <i class="fas fa-flag"></i>
-                            </span>
-                            <span class="text">Back</span>
-                        </a>
-                        <a href="{{ route('staff.course.add') }}" class="btn btn-primary bg-success"
+                        <a href="{{ route('staff.trainer.add') }}" class="btn btn-primary btn-icon-split"
                             style="float: right;">
                             <span class="icon text-white-50">
                                 <i class="fas fa-flag"></i>
@@ -59,39 +52,33 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>Name</th>
-                                <th>Description</th>
-                                <th>Category</th>
-                                <th></th>
+                                <th>Username</th>
+                                <th>Type</th>
+                                <th>Department</th>
+                                <th>Phone Number</th>
+                                <th>E-mail</th>
                                 <th>Option</th>
                             </tr>
                         </thead>
-                        @foreach ($course as $key => $value)
+                        @foreach ($trainer as $key => $value)
                             <tbody>
                                 <tr>
-                                    <td>{{ $value->id }}</td>
                                     <td>{{ $value->name }}</td>
-                                    <td>{{ $value->description }}</td>
+                                    <td>{{ $value->username }}</td>
+                                    <td>{{ $value->type }}</td>
+                                    <td>{{ $value->department }}</td>
+                                    <td>{{ $value->phone }}</td>
+                                    <td>{{ $value->email }}</td>
                                     <td>
-                                        @foreach ($category as $categories)
-                                            @if ($categories->id == $value->category_id)
-                                                <option value="{{ $categories->id }}" selected>{{ $categories->name }}
-                                                </option>
-                                            @endif
-                                        @endforeach
-                                    </td>
-                                    <td></td>
-                                    <td>
-                                        <a href="{{ asset('Staff/course/update/' . $value->id) }}"
-                                            class="btn btn-primary bg-success">
+                                        <a href="{{ asset('Staff/trainer/update/' . $value->id) }}"
+                                            class="btn btn-secondary btn-icon-split">
                                             <span class="icon text-white-10">
                                                 <i class="fas fa-arrow-right"></i>
                                             </span>
                                             <span class="text">Update</span>
                                         </a>
-                                        <a href="{{ asset('Staff/course/delete/' . $value->id) }}"
-                                            onclick="return confirm('You sure to delete it?')"
+                                        <a href="{{ asset('Staff/trainer/delete/' . $value->id) }}"
                                             class="btn btn-danger btn-icon-split">
                                             <span class="icon text-white-10">
                                                 <i class="fas fa-trash"></i>

@@ -19,9 +19,9 @@
             <div class="card-header py-3">
                 <div class="row">
                     <div class="cpl-sm-12 col-md-6">
-                        <h4 class="m-0 font-weight-bold text-primary">Course List
+                        <h4 class="m-0 font-weight-bold text-primary">Assigned TraineeCourse List
                             <!-- Topbar Search -->
-                            <form action="{{ route('staff.course.search') }}" method="GET"
+                            <form action="" method="GET"
                                 class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                                 <div class="input-group">
                                     <input type="text" class="form-control bg-light border-0 small"
@@ -37,19 +37,12 @@
                         </h4>
                     </div>
                     <div class="cpl-sm-12 col-md-6">
-                    <a href="{{ route('staff.index') }}" class="btn btn-danger btn-icon-split"
+                        <a href="{{ route('staff.traineecourse.add') }}" class="btn btn-primary btn-icon-split"
                             style="float: right;">
                             <span class="icon text-white-50">
                                 <i class="fas fa-flag"></i>
                             </span>
-                            <span class="text">Back</span>
-                        </a>
-                        <a href="{{ route('staff.course.add') }}" class="btn btn-primary bg-success"
-                            style="float: right;">
-                            <span class="icon text-white-50">
-                                <i class="fas fa-flag"></i>
-                            </span>
-                            <span class="text">Add</span>
+                            <span class="text">TraineeCourse</span>
                         </a>
                     </div>
                 </div>
@@ -59,38 +52,32 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Name</th>
+                                
+                                <th>Trainee</th>
+                                <th>Course</th>
                                 <th>Description</th>
-                                <th>Category</th>
+                                <th></th>
                                 <th></th>
                                 <th>Option</th>
                             </tr>
                         </thead>
-                        @foreach ($course as $key => $value)
+                        @foreach ($courseTrainee as $value)
                             <tbody>
                                 <tr>
-                                    <td>{{ $value->id }}</td>
-                                    <td>{{ $value->name }}</td>
+                                    <td>{{ $value->trainee_name }}</td>
+                                    <td>{{ $value->course_name }}</td>
                                     <td>{{ $value->description }}</td>
-                                    <td>
-                                        @foreach ($category as $categories)
-                                            @if ($categories->id == $value->category_id)
-                                                <option value="{{ $categories->id }}" selected>{{ $categories->name }}
-                                                </option>
-                                            @endif
-                                        @endforeach
-                                    </td>
+                                    <td></td>
                                     <td></td>
                                     <td>
-                                        <a href="{{ asset('Staff/course/update/' . $value->id) }}"
-                                            class="btn btn-primary bg-success">
+                                        <a href="{{ asset('Staff/traineeCourse/update/' . $value->id) }}"
+                                            class="btn btn-secondary btn-icon-split">
                                             <span class="icon text-white-10">
                                                 <i class="fas fa-arrow-right"></i>
                                             </span>
                                             <span class="text">Update</span>
                                         </a>
-                                        <a href="{{ asset('Staff/course/delete/' . $value->id) }}"
+                                        <a href="{{ asset('Staff/traineeCourse/delete/' . $value->id) }}"
                                             onclick="return confirm('You sure to delete it?')"
                                             class="btn btn-danger btn-icon-split">
                                             <span class="icon text-white-10">
@@ -107,5 +94,4 @@
             </div>
         </div>
     </div>
-    <!-- /.container-fluid -->
 @endsection

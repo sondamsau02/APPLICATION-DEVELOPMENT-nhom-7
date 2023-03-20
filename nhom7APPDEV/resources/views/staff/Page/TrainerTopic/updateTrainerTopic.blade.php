@@ -17,27 +17,32 @@
             <div class="col-xs-12 col-md-5 col-lg-5">
                 <div class="panel panel-primary">
                     <div class="panel-body">
-                        <form action="{{ route('staff.category.add') }}" method="POST" role="form"
+                        <form action="" method="POST" role="form"
                             enctype="multipart/form-data">
                             @csrf
                             <fieldset>
                                 <div>
                                     @csrf
-                                    <label>Name:</label>
-                                    <input type="text" class="form-control" name="name" placeholder="Category Name">
+                                    <label>Topic:</label>
+                                    <select name="topic_id" class="form-control">
+                                        @foreach ($topic as $topics)
+                                            <option value="{{ $topics->id }}">{{ $topics->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                     <br>
-                                    <label>Description:</label>
-                                    <textarea class="form-control" name="description"
-                                    style="width: 100%; height:100px;" placeholder="Descrption"></textarea>
+                                    <label>Trainer:</label>
+                                    <select name="trainer_id" class="form-control">
+                                        @foreach ($trainer as $trainers)
+                                            <option value="{{ $trainers->id }}">{{ $trainers->name }}</option>
+                                        @endforeach
+                                    </select>
                                     <br>
                                 </div>
                             </fieldset>
                             <button class="btn btn-primary btn-block text-uppercase mb-3" type="submit">
-                                Add Category
+                                Assign Topic for trainer
                             </button>
-                            <a href="{{ route('staff.category.index') }}" class="btn btn-danger btn-icon-split">
-                                 Back to List Account
-                                 </a>
                         </form>
                     </div>
                 </div>

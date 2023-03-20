@@ -35,7 +35,16 @@
                         </h4>
                     </div>
                     <div class="cpl-sm-12 col-md-6">
-                        <a href="{{ route('staff.category.add') }}" class="btn btn-primary btn-icon-split"
+                    <a href="{{ route('staff.index') }}" class="btn btn-danger btn-icon-split"
+                            style="float: right;">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-flag"></i>
+                            </span>
+                            <span class="text">Back</span>
+                        </a>
+
+
+                        <a href="{{ route('staff.category.add') }}" class="btn btn-primary bg-success"
                             style="float: right;">
                             <span class="icon text-white-50">
                                 <i class="fas fa-flag"></i>

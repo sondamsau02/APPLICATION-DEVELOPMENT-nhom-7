@@ -17,25 +17,33 @@
             <div class="col-xs-12 col-md-5 col-lg-5">
                 <div class="panel panel-primary">
                     <div class="panel-body">
-                        <form action="{{ route('staff.category.add') }}" method="POST" role="form"
+                        <form action="" method="POST" role="form"
                             enctype="multipart/form-data">
                             @csrf
                             <fieldset>
                                 <div>
                                     @csrf
                                     <label>Name:</label>
-                                    <input type="text" class="form-control" name="name" placeholder="Category Name">
+                                    <input type="text" class="form-control" name="name" value="{{ $topic->name }}">
                                     <br>
                                     <label>Description:</label>
                                     <textarea class="form-control" name="description"
-                                    style="width: 100%; height:100px;" placeholder="Descrption"></textarea>
+                                    style="width: 100%; height:100px;" placeholder="Descrption">{{ $topic->description }}</textarea>
+                                    <br>
+                                    <label>Course:</label>
+                                    <select name="course_id" class="form-control">
+                                        @foreach ($course as $courses)
+                                            <option value="{{ $courses->id }}">{{ $courses->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                     <br>
                                 </div>
                             </fieldset>
                             <button class="btn btn-primary btn-block text-uppercase mb-3" type="submit">
-                                Add Category
+                                Update Topic
                             </button>
-                            <a href="{{ route('staff.category.index') }}" class="btn btn-danger btn-icon-split">
+                            <a href="{{ route('staff.topic.index') }}" class="btn btn-danger btn-icon-split">
                                  Back to List Account
                                  </a>
                         </form>
