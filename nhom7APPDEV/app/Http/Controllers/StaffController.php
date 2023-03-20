@@ -6,9 +6,9 @@ use App\Models\User;
 use App\Models\Categories;
 use App\Models\Courses;
 use App\Models\Topics;
-use App\Models\TrainerCoures;
-use App\Models\TrainerTopics;
+use App\Models\TraineeCourse;
 use Illuminate\Http\Request;
+use App\Models\TrainerTopics;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -275,6 +275,325 @@ class StaffController extends Controller
         ->get();
         return view('Staff.Page.Course.searchCourse', compact('course', 'search'));
     }
+    //TOPIC CONTROLLER//
+    public function Topicindex(){
+        $topic=Topics::all();
+        $course=Courses::all();
+        return view('Staff.Page.Topic.listTopic', compact('topic', 'course'));
+    }
+
+    public function getAddTopic(){
+        $course=Courses::all();
+        return view('Staff.Page.Topic.addTopic', compact('course'));
+    }
+
+    public function postAddTopic(Request $request){
+        if($request->isMethod('POST')){
+            $validator=Validator::make($request->all(),[
+                'name'=>'required|unique:topics,name',
+                'description'=>'required',
+                'course_id'=>'required',
+            ]);
+
+            if($validator->fails()){
+                return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+            }
+
+            $topic= new Topics;
+            $topic->name=$request->name;
+            $topic->description=$request->description;
+            $topic->course_id=$request->course_id;
+            $topic->save();
+            return redirect()->route('staff.topic.index')->with('success','Add new Topic Successfully!');
+        }
+    }
+
+    public function getUpdateTopic($id){
+        $data['topic']=Topics::find($id);
+        $course=Courses::all();
+        return view('Staff.Page.Topic.updateTopic', $data, compact('course'));
+    }
+
+    public function postUpdateTopic(Request $request, $id){
+        if($request->isMethod('POST')){
+            $validator=Validator::make($request->all(),[
+                
+            ]);
+
+            if($validator->fails()){
+                return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+            }
+
+            $topic= Topics::find($id);
+            $topic->name=$request->name;
+            $topic->description=$request->description;
+            $topic->course_id=$request->course_id;
+            $topic->save();
+            return redirect()->route('staff.topic.index')->with('success','Update Topic Successfully!');
+        }
+    }
+
+    public function deleteTopic($id) {
+        $topicsCount = Topics::where('course_id', $id)->count();
+        if ($topicsCount > 0) {
+            return redirect()->back()->with('error', 'Some Topics is associated with this Course 
+            or a trainer was assigned to this course. So this Course cannot be deleted!');
+        }
+        
+        Topics::where('id', $id)->delete();
+        return redirect()->route('staff.topic.index')->with('success', 'Delete Topics Successfully!');
+    }
+    //trainer//
+
+    public function Trainerindex(){
+        $trainer = DB::table('users')
+        ->join('roles','users.role_id', '=', 'roles.id')
+        ->where('roles.description','=', 'Trainer')
+        ->select('users.*')
+        ->get();
+        return view('Staff.Page.Trainer.listTrainer', compact('trainer'));
+    }
+
+    public function getAddTrainer(){
+        return view('Staff.Page.Trainer.addTrainer');
+    }
+
+    public function postAddTrainer(Request $request){
+        if($request->isMethod('POST')){
+            $validator=Validator::make($request->all(),[
+                'username'=>'required|unique:users,username',
+                'password'=>'required',
+                'name'=>'required',
+                'department'=>'required',
+                'phone'=>'required',
+                'email'=>'required|email|unique:users,email',
+            ]);
+
+            if($validator->fails()){
+                return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+            }
+
+            $trainer= new User;
+            $trainer->username=$request->username;
+            $trainer->password=Hash::make($request->password);
+            $trainer->name=$request->name;
+            $trainer->type=$request->type;
+            $trainer->department=$request->department;
+            $trainer->phone=$request->phone;
+            $trainer->email=$request->email;
+            $trainer->role_id='3';
+            $trainer->save();
+            return redirect()->route('staff.trainer.index')->with('success','Add new Trainer Account Successfully!');
+        }
+    }
+
+    public function getUpdateTrainer($id){
+        $data['trainer']=User::find($id);
+        return view('Staff.Page.Trainer.updateTrainer', $data);
+    }
+
+    public function postUpdateTrainer(Request $request, $id){
+        if($request->isMethod('POST')){
+            $validator=Validator::make($request->all(),[
+                'username'=>'unique:users,username',
+
+            ]);
+
+            if($validator->fails()){
+                return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+            }
+
+            $trainer= User::find($id);
+            $trainer->username=$request->username;
+            $trainer->password=Hash::make($request->password);
+            $trainer->name=$request->name;
+            $trainer->type=$request->type;
+            $trainer->department=$request->department;
+            $trainer->phone=$request->phone;
+            $trainer->email=$request->email;
+            $trainer->role_id='2';
+            $trainer->save();
+            return redirect()->route('staff.trainer.index')->with('success','Update Trainer Account Successfully!');
+        }
+    }
+
+    public function deleteTrainer($id){
+        $trainer=User::find($id);
+        $trainer->delete();
+        return back()->with('success', 'Delete Trainer Successfully!');;
+    }
+    //traineeCourse//
+    public function TraineeCourseindex(){
+        $courseTrainee = DB::table('trainee_courses')
+        ->join('users', 'trainee_courses.user_id', '=', 'users.id')
+        ->join('courses', 'trainee_courses.course_id', '=', 'courses.id')
+        ->select(
+            'trainee_courses.id', 
+            'trainee_courses.user_id', 
+            'users.name as trainee_name', 
+            'trainee_courses.course_id', 
+            'courses.name as course_name',
+            'courses.description'
+        )
+        ->get();
+        return view('Staff.Page.TraineeCourse.listTraineeCourse', compact('courseTrainee'));
+    }
+    public function getAddTraineeCourse(){
+        $trainee = DB::table('users')
+        ->join('roles', 'users.role_id', '=', 'roles.id')
+        ->where('roles.description', '=', 'Trainee')
+        ->select('users.*')
+        ->get();
+        $course = Courses::all();
+        return view('Staff.Page.TraineeCourse.addTraineeCourse', compact('trainee', 'course'));
+    }
+    public function postAddTraineeCourse(Request $request){
+        if($request->isMethod('POST')){
+            $validator=Validator::make($request->all(),[
+
+            ]);
+
+            if($validator->fails()){
+                return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+            }
+
+            TraineeCourse::create([
+                'user_id' => $request->input('user_id'),
+                'course_id' => $request->input('course_id'),
+            ]);
+            return redirect()->route('staff.traineecourse.index')->with('success','Assign Course Successfully!');
+        }
+    } 
+    public function getUpdateTraineeCourse($id){
+        $trainee = DB::table('users')
+        ->join('roles', 'users.role_id', '=', 'roles.id')
+        ->where('roles.description', '=', 'Trainee')
+        ->select('users.*')
+        ->get();
+        $course = Courses::all();
+        return view('Staff.Page.TraineeCourse.updateTraineeCourse', compact('trainee', 'course'));
+    }
+
+    public function postUpdateTraineeCourse(Request $request, $id){
+        if($request->isMethod('POST')){
+            $validator=Validator::make($request->all(),[
+
+            ]);
+
+            if($validator->fails()){
+                return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+            }
+
+            $assign= TraineeCourse::find($id);
+            $assign->user_id = $request->user_id;
+            $assign->course_id = $request->course_id;
+            $assign->save();
+            return redirect()->route('staff.traineecourse.index')->with('success','Update Assigned Trainee Course Successfully!');
+        }
+    }
+
+    public function deleteTraineeCourse($id){
+        $assign=TraineeCourse::find($id);
+        $assign->delete();
+        return back()->with('success', 'Delete Assigned Trainee Course Successfully!');
+    } 
+    //trainer topic//
+    public function TrainerTopicindex()
+{
+    $trainerTopics = DB::table('trainer_topics')
+        ->join('users', 'trainer_topics.user_id', '=', 'users.id')
+        ->join('topics', 'trainer_topics.topic_id', '=', 'topics.id')
+        ->select(
+            'trainer_topics.id', 
+            'trainer_topics.user_id', 
+            'users.name as trainer_name', 
+            'trainer_topics.topic_id', 
+            'topics.name as topic_name',
+            'topics.description'
+        )
+        ->get();
+    return view('Staff.Page.TrainerTopic.listTrainerTopic', compact('trainerTopics'));
+}
+
+
+    public function getAddTrainerTopic(){
+        $trainer = DB::table('users')
+        ->join('roles', 'users.role_id', '=', 'roles.id')
+        ->where('roles.description', '=', 'Trainer')
+        ->select('users.*')
+        ->get();
+        $topic = Topics::all();
+        return view('Staff.Page.TrainerTopic.addTrainerTopic', compact('trainer', 'topic'));
+    }
+
+    public function postAddTrainerTopic(Request $request){
+        if($request->isMethod('POST')){
+            $validator=Validator::make($request->all(),[
+
+            ]);
+
+            if($validator->fails()){
+                return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+            }
+
+            TrainerTopics::create([
+                'user_id' => $request->input('user_id'),
+                'topic_id' => $request->input('topic_id'),
+            ]);
+            return redirect()->route('staff.trainertopic.index')->with('success','Assign Topic Successfully!');
+        }
+    }
+
+    public function getUpdateTrainerTopic($id){
+        $trainer = DB::table('users')
+        ->join('roles', 'users.role_id', '=', 'roles.id')
+        ->where('roles.description', '=', 'Trainer')
+        ->select('users.*')
+        ->get();
+        $topic = Topics::all();
+        return view('Staff.Page.TrainerTopic.updateTrainerTopic', compact('trainer', 'topic'));
+    }
+
+    public function postUpdateTrainerTopic(Request $request, $id){
+        if($request->isMethod('POST')){
+            $validator=Validator::make($request->all(),[
+
+            ]);
+
+            if($validator->fails()){
+                return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+            }
+
+            $assign= TrainerTopics::find($id);
+            $assign->user_id = $request->user_id;
+            $assign->topic_id = $request->topic_id;
+            $assign->save();
+            return redirect()->route('staff.trainertopic.index')->with('success','Update Assigned Topic Successfully!');
+        }
+    }
+
+    public function deleteTrainerTopic($id){
+        $assign=TrainerTopics::find($id);
+        $assign->delete();
+        return back()->with('success', 'Delete Assigned Topic Successfully!');
+    }
+    
     
 
 
