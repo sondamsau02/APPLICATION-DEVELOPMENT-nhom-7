@@ -35,6 +35,9 @@
                             <button class="btn btn-primary btn-block text-uppercase mb-3" type="submit">
                                 Update Category
                             </button>
+                            <a href="{{ route('staff.category.index') }}" class="btn btn-danger btn-icon-split">
+                                 Back to List Account
+                                 </a>
                         </form>
                     </div>
                 </div>

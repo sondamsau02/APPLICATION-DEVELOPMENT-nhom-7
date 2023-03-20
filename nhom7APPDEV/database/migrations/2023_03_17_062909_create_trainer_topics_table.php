@@ -15,13 +15,13 @@ return new class extends Migration
     {
         Schema::create('trainer_topics', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->unsignedInteger('topic_id');
- 
-            $table->foreign('topic_id')->references('id')->on('topics');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('topic_id');
+            $table->foreign('topic_id')->references('id')->on('topics')->onDelete('cascade');
             $table->timestamps();
         });
+        
     }
 
     /**

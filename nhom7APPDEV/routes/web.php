@@ -95,6 +95,38 @@ Route::group(['middleware' => ['auth', 'role:Staff']], function () {
             Route::get('delete/{id}',[StaffController::class,'deleteCourse']);
             Route::get('search',[StaffController::class,'searchCourse'])->name('staff.course.search');
         });
+        Route::prefix('topic')->group(function () {
+            Route::get('/',[StaffController::class,'Topicindex'])->name('staff.topic.index');
+            Route::get('add/',[StaffController::class,'getAddTopic']);
+            Route::post('add/',[StaffController::class,'postAddTopic'])->name('staff.topic.add');
+            Route::get('update/{id}',[StaffController::class,'getUpdateTopic']);
+            Route::post('update/{id}',[StaffController::class,'postUpdateTopic'])->name('staff.topic.update');
+            Route::get('delete/{id}',[StaffController::class,'deleteTopic']);
+        });
+        Route::prefix('trainer')->group(function () {
+            Route::get('/',[StaffController::class,'Trainerindex'])->name('staff.trainer.index');
+            Route::get('add/',[StaffController::class,'getAddTrainer']);
+            Route::post('add/',[StaffController::class,'postAddTrainer'])->name('staff.trainer.add');
+            Route::get('update/{id}',[StaffController::class,'getUpdateTrainer']);
+            Route::post('update/{id}',[StaffController::class,'postUpdateTrainer'])->name('staff.trainer.update');
+            Route::get('delete/{id}',[StaffController::class,'deleteTrainer']);
+        });
+        Route::prefix('traineeCourse')->group(function () {
+            Route::get('/',[StaffController::class,'TraineeCourseindex'])->name('staff.traineecourse.index');
+            Route::get('add/',[StaffController::class,'getAddTraineeCourse']);
+            Route::post('add/',[StaffController::class,'postAddTraineeCourse'])->name('staff.traineecourse.add');
+            Route::get('update/{id}',[StaffController::class,'getUpdateTraineeCourse']);
+            Route::post('update/{id}',[StaffController::class,'postUpdateTraineeCourse'])->name('staff.traineecourse.update');
+            Route::get('delete/{id}',[StaffController::class,'deleteTraineeCourse']);
+        });
+        Route::prefix('trainerTopic')->group(function () {
+            Route::get('/',[StaffController::class,'TrainerTopicindex'])->name('staff.trainertopic.index');
+            Route::get('add/',[StaffController::class,'getAddTrainerTopic']);
+            Route::post('add/',[StaffController::class,'postAddTrainerTopic'])->name('staff.trainertopic.add');
+            Route::get('update/{id}',[StaffController::class,'getUpdateTrainerTopic']);
+            Route::post('update/{id}',[StaffController::class,'postUpdateTrainerTopic'])->name('staff.trainertopic.update');
+            Route::get('delete/{id}',[StaffController::class,'deleteTrainerTopic']);
+        });
     });
 });
 //
