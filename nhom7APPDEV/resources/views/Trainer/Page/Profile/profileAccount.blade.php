@@ -44,6 +44,9 @@
                             <a class="btn btn-primary btn-block text-uppercase mb-3" href="{{ route('trainer.profile.update') }}">
                                 Update Account Information
                             </a>
+                            <a class="btn btn-primary btn-block text-uppercase mb-3" href="{{ route('trainer.index') }}">
+                                back to main page
+                            </a>
                         </form>
                     </div>
                 </div>

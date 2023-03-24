@@ -31,12 +31,11 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                <th>Topic</th>
+                                
                                 <th>Trainer</th>
+                                <th>Topic</th>
                                 <th>Description</th>
-                                <th></th>
-                                <th></th>
-                                <th>Option</th>
+                                
                             </tr>
                         </thead>
                         @foreach ($trainerTopics as $value)
@@ -44,14 +43,14 @@
                                 <tr>
                                     <td>{{ $value->trainer_name }}</td>
                                     <td>{{ $value->topic_name }}</td>
-                                    <td>{{ $value->description }}</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>{{ $value->description }}</td>                                  
                                 </tr>
                             </tbody>
                         @endforeach
                     </table>
+                    <a class=" btn btn-danger btn-icon-split mb-3" href="{{ route('trainer.index') }}">
+                                back to main page
+                            </a>
                 </div>
             </div>
         </div>

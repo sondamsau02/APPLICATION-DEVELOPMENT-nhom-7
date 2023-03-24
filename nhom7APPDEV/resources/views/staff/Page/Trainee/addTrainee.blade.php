@@ -30,7 +30,7 @@
                                     <label>Password:</label>
                                     <input type="password" class="form-control" name="password" placeholder="Password">
                                     <br>
-                                    <label>Nanme:</label>
+                                    <label>Name:</label>
                                     <input type="text" class="form-control" name="name" value="{{ old('name') }}"
                                         placeholder="Full Name">
                                     <br>
