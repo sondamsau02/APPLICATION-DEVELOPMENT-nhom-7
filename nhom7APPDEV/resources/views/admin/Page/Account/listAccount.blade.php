@@ -24,6 +24,10 @@
             Add Account
         </a>
     </div>
+    <div class="d-flex justify-content-between">
+    <div>
+        
+    </div>
     <div>
         <form class="form-inline" method="GET" action="{{ route('admin.account.index') }}">
             <div class="form-group mb-2">
@@ -39,6 +43,11 @@
             <button type="submit" class="btn btn-primary mb-2">Search</button>
         </form>
     </div>
+    <div>
+        <a href="{{ route('admin.index') }}" class="btn btn-danger btn-icon-split">Back</a>
+    </div>
+</div>
+
 </div>
 
     <div class="card-body">

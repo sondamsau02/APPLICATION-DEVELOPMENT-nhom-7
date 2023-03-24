@@ -29,7 +29,7 @@
               <div class="brand-logo">
                 <img src="../../images/logo-fpt.jpg" alt="logo">
               </div>
-              <h4>Hello! Admin let's get started</h4>
+              <h4>Hello! Friend let's get started</h4>
               <h6 class="font-weight-light">Sign in to continue.</h6>
               <form class="user" role="form" method="POST" action="{{ route('auth.login') }}">
                                     @csrf

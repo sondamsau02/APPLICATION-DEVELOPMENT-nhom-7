@@ -16,8 +16,10 @@ use Illuminate\Support\Facades\Validator;
 class StaffController extends Controller
 {
     public function Staffindex(){
-        return view('Staff.Page.indexStaff');
+        $totalUsers = DB::table('users')->count();
+        return view('Staff.Page.indexStaff', compact('totalUsers'));
     }
+ 
     public function Traineeindex(){
         $trainee = DB::table('users')
         ->join('roles', 'users.role_id', '=', 'roles.id')

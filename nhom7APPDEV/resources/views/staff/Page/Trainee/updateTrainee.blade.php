@@ -31,6 +31,8 @@
                                     <label>Name:</label>
                                     <input type="text" class="form-control" name="name" value="{{ $trainee->name }}">
                                     <br>
+                                    <label>email:</label>
+                                    <input type="text" class="form-control" name="email" value="{{ old('email') }}">
                                     <label>Phone:</label>
                                     <input type="text" class="form-control" name="phone" value="{{ $trainee->phone }}">
                                     <br>
