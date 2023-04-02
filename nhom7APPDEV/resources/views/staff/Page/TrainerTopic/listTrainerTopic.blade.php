@@ -1,15 +1,16 @@
 @extends('Layoutss.master')
 @section('content')
-@if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p>{{ $message }}</p>
-        </div>
+<div class="container-fluid">
+    @if ($message = Session::get('success'))
+    <div class="alert alert-success">
+        <p>{{ $message }}</p>
+    </div>
     @endif
 
     @if ($message = Session::get('error'))
-        <div class="alert alert-danger">
-            <p>{{ $message }}</p>
-        </div>
+    <div class="alert alert-danger">
+        <p>{{ $message }}</p>
+    </div>
     @endif
 
     <!-- DataTales Example -->
@@ -42,6 +43,13 @@
                         </span>
                         <span class="text">Assign</span>
                     </a>
+                    <a href="{{ route('staff.index') }}" class="btn btn-danger btn-icon-split"
+                            style="float: right;">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-flag"></i>
+                            </span>
+                            <span class="text">Back</span>
+                        </a>
                 </div>
             </div>
         </div>
@@ -60,38 +68,39 @@
                     </thead>
                     <tbody>
                         @foreach ($trainerTopics as $value)
-                            <tr>
-                                <td>{{ $value->topic_name }}</td>
-                                <td>{{ $value->trainer_name }}</td>
-                                <td>{{ $value->description }}</td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <a href="{{ asset('Staff/trainerTopic/update/' . $value->id) }}"
-                                        class="btn btn-secondary btn-icon-split">
-                                        <span class="icon text-white-10">
-                                            <i class="fas fa-arrow-right"></i>
-                                        </span>
-                                        <span class="text">Update</span>
-                                    </a>
-                                    <a href="{{ asset('staff/trainertopic/delete/' . $value->id) }}"
-                                        onclick="return confirm('You sure to delete it?')"
-                                        class="btn btn-danger btn-icon-split">
-                                        <span class="icon text-white-10">
-                                            <i class="fas fa-trash"></i>
-                                        </span>
-                                        <span class="text">Delete</span>
-                                    </a>
-                                </td>
-                            </tr>
+                        <tr>
+                            <td>{{ $value->topic_name }}</td>
+                            <td>{{ $value->trainer_name }}</td>
+                            <td>{{ $value->description }}</td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <a href="{{ asset('Staff/trainerTopic/update/' . $value->id) }}"
+                                    class="btn btn-secondary btn-icon-split">
+                                    <span class="icon text-white-10">
+                                        <i class="fas fa-arrow-right"></i>
+                                    </span>
+                                    <span class="text">Update</span>
+                                </a>
+                                <a href="{{ asset('Staff/trainerTopic/delete/' . $value->id) }}"
+                                    onclick="return confirm('You sure to delete it?')"
+                                    class="btn btn-danger btn-icon-split">
+                                    <span class="icon text-white-10">
+                                        <i class="fas fa-trash"></i>
+                                    </span>
+                                    <span class="text">Delete</span>
+                                </a>
+                            </td>
+                        </tr>
                         @endforeach
                     </tbody>
 
-                    </table>
-                </div>
+                </table>
             </div>
         </div>
     </div>
+</div>
+</div>
 </div>
 <!-- /.container-fluid -->
 @endsection

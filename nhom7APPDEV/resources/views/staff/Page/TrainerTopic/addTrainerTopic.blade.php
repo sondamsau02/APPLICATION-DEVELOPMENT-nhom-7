@@ -1,6 +1,11 @@
 @extends('Layoutss.master')
 @section('content')
-    @if ($errors->any())
+    
+
+    <div class="container-fluid">
+        
+        <div class="row">
+            @if ($errors->any())
         <div class="alert alert-danger">
             <strong>Whoops!</strong> There were some problems with your input!
             <br>
@@ -11,9 +16,6 @@
             </ul>
         </div>
     @endif
-
-    <div class="container-fluid">
-        <div class="row">
             <div class="col-xs-12 col-md-5 col-lg-5">
                 <div class="panel panel-primary">
                     <div class="panel-body">

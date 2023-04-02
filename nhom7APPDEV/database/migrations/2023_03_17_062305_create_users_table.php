@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('name')->nullable();
             $table->string('email')->nullable();
-            $table->string('phone',8)->nullable();
+            $table->string('phone',13)->nullable();
             $table->string('department',50)->nullable();
             $table->string('type',200)->nullable()->default('internal');
             $table->string('academic_standard',50)->nullable();

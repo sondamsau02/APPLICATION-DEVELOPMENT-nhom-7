@@ -30,8 +30,11 @@ class AuthController extends Controller
                 return redirect()->route('admin.index')->with('success', 'Login such as an Administrator Successfully!');
             } elseif($user->role->description === 'Staff') {
                 return redirect()->route('staff.index')->with('success', 'Login such as a Staff Successfully!');
-            } else {
+            }elseif($user->role->description === 'Trainer') {
                 return redirect()->route('trainer.index')->with('success', 'Login such as a Trainer Successfully!');
+            }
+             else {
+                return redirect()->route('trainee.index')->with('success', 'Login such as a Trainee Successfully!');
             }
         }
     

@@ -1,4 +1,4 @@
-@extends('Trainer.layout.master')
+@extends('Trainee.layout.master')
 @section('content')
 
 
@@ -16,11 +16,11 @@
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                    <a href="{{ route('trainer.topic.index') }}">Assigned Topic</a>
+                                    <a href="{{ route('trainee.course.index') }}">Assigned Course</a>
                                 </div>
                                 <div class="row no-gutters align-items-center">
                                     <div class="col-auto">
-                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">List of Topics</div>
+                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">List of Courses</div>
                                     </div>
                                 </div>
                             </div>

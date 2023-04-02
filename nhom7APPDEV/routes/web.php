@@ -1,17 +1,18 @@
 <?php
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\TrainerController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\TraineeController;
+use App\Http\Controllers\TrainerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\AuthController;
-use Illuminate\Support\Facades\Gate;
 
 /*
 |--------------------------------------------------------------------------
@@ -126,6 +127,17 @@ Route::group(['middleware' => ['auth', 'role:Staff']], function () {
             Route::get('update/{id}',[StaffController::class,'getUpdateTrainerTopic']);
             Route::post('update/{id}',[StaffController::class,'postUpdateTrainerTopic'])->name('staff.trainertopic.update');
             Route::get('delete/{id}',[StaffController::class,'deleteTrainerTopic']);
+        });
+    });
+});
+  Route::group(['middleware' => ['auth', 'role:Trainee']], function () {
+    // trainee routes
+    Route::prefix('trainee')->group(function () {
+        Route::get('/',[TraineeController::class,'Traineeindex'])->name('trainee.index');
+        Route::get('traineecourse',[TraineeController::class,'Courseindex'])->name('trainee.course.index');
+        Route::prefix('profile')->group(function () {
+            Route::get('/',[TraineeController::class,'Profileindex'])->name('trainee.profile');
+           
         });
     });
 });
